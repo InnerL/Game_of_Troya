@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QPixmap>
+#include "fondo.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,8 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap pixmap(":/map_1.png");
-    ui->imageLabel->setPixmap(pixmap);
+    //una instancia de Fondo y se establece como el widget central
+    fondo *fondoWidget = new fondo(this);
+    setCentralWidget(fondoWidget);
+
+    fondoWidget->setFocus();
 }
 
 MainWindow::~MainWindow()

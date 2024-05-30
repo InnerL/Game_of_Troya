@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/imagen">
+        <file>map_1.png</file>
+        <file>map_2.png</file>
+        <file>spartan.png</file>
+    </qresource>
+</RCC>
