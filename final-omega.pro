@@ -11,11 +11,15 @@ CONFIG += c++17
 SOURCES += \
     fondo.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    material.cpp \
+    personaje.cpp
 
 HEADERS += \
     fondo.h \
-    mainwindow.h
+    mainwindow.h \
+    material.h \
+    personaje.h
 
 FORMS += \
     mainwindow.ui

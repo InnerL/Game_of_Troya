@@ -3,27 +3,39 @@
 
 #include <QWidget>
 #include <QPixmap>
-#include <QKeyEvent>
+#include <QLabel>
 
 
-class fondo : public QWidget
+#include "material.h"
+
+
+class Fondo : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit fondo(QWidget *parent = nullptr);
+    explicit Fondo(QWidget *parent = nullptr);
+    const QVector<QRect>& getColisionArea() const;
+    void aggMaterial(const QPixmap &pixmap, int x, int y, Material::MaterialType type);
+
+    const QVector<Material*>& getMaterials() const;
+    void updateLabels(int maderaCount, int piedraCount); //actualizar label
+
 
 protected:
     void paintEvent(QPaintEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
 
 
 private:
-    QPixmap background1; //fondo1
-    QPixmap background2; //fondo2
-    bool useBackground1; //false
+    QPixmap background1;
+    QVector<QPixmap> tiles;
+    QVector<QRect> colisionArea; // Áreas de colisión
+    QVector<Material*> materials; // Almacenar los materiales
 
-    void toggleBackground();//funcion cambio
+    QLabel *maderaLabel; // Etiqueta para la madera
+    QLabel *piedraLabel; // Etiqueta para la piedra
+
+
 };
 
 #endif // FONDO_H
