@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>spartan.png</file>
+        <file>map_1.png</file>
+        <file>map_2.png</file>
+        <file>spartan-solo.png</file>
+    </qresource>
+</RCC>
