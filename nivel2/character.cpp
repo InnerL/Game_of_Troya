@@ -17,7 +17,10 @@ void Character::keyPressEvent(QKeyEvent *event) {
     } else if (event->key() == Qt::Key_D) {
         movingRight = true;
     } else if (event->key() == Qt::Key_Space) {
-        physics->jump();
+        if (!jumping) {
+            physics->jump();
+            jumping = true;
+        }
     }
 }
 
@@ -32,14 +35,17 @@ void Character::keyReleaseEvent(QKeyEvent *event) {
 void Character::updatePhysics() {
     float ax = 0.0;
     if (movingLeft) {
-        ax = -1.0;  // Accelerate left
+        ax = -3.0;  // Accelerate left
     } else if (movingRight) {
-        ax = 1.0;  // Accelerate right
+        ax = 3.0;  // Accelerate right
     } else {
         ax = -physics->get_vx() * friction;  // Apply friction
     }
 
     physics->calculate_cinematics(ax, 0);
+
+    // Apply gravity
+    physics->calculate_parabolic_dynamics();
 
     // Limit the velocity
     if (physics->get_vx() > maxVelocity) {
@@ -57,5 +63,12 @@ void Character::updatePhysics() {
     } else if (characterX > 8000 - item->pixmap().width()) {
         physics->x = physics->get_phisical_x(8000 - item->pixmap().width());
         physics->set_vx(0);
+    }
+
+    // Allow the character to fall and detect landing
+    if (physics->get_simulated_y(physics->get_y()) >= 910) {
+        physics->set_y(physics->get_phisical_y(910));
+        physics->set_vy(0);
+        jumping = false;
     }
 }

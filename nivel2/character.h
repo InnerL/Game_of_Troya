@@ -21,8 +21,8 @@ private:
     fisica *physics;
     bool movingLeft, movingRight, jumping;
     QTimer *updateTimer;
-    const float maxVelocity = 5.0;
-    const float friction = 0.2;
+    const float maxVelocity = 3.0;
+    const float friction = 4.0;
 };
 
 #endif // CHARACTER_H

@@ -124,7 +124,7 @@ QGraphicsPixmapItem *fisica::get_item() const
 
 void fisica::jump()
 {
-    if (y <= get_phisical_y(300)) {  // Assuming 300 is the y coordinate of the floor
-        vy = 5.0;  // Set the initial vertical speed for the jump
+    if (get_y() <= get_phisical_y(300)) {  // Assuming 300 is the y coordinate of the floor
+        vy = 3.0;  // Set the initial vertical speed for the jump
     }
 }

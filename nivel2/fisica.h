@@ -31,12 +31,11 @@ public:
     QTimer *time;
     QGraphicsPixmapItem *item;
     QString type;
+
     void calculate_cinematics(float ax, float ay);
     void calculate_parabolic_dynamics();
     void calculate_MRU_dynamics();
     void set_initial_conditions(float x, float y, float vx, float vy);
-
-private:
 
 private slots:
     void time_step();

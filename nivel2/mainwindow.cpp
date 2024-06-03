@@ -12,10 +12,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QGraphicsPixmapItem *characterItem = scene->addPixmap(characterPixmap);
     characterItem->setPos(200, 300);
 
-    character = new Character(200, 300, 800, 600, characterItem);
+    character = new Character(10, 910, 800, 600, characterItem);
     level = new Level_2(background);
 
-    resize(800, 600);
+    resize(1280, 720);
 }
 
 MainWindow::~MainWindow() {
