@@ -15,11 +15,10 @@ class Fondo : public QWidget
 
 public:
     explicit Fondo(QWidget *parent = nullptr);
-    const QVector<QRect>& getColisionArea() const;
-    void aggMaterial(const QPixmap &pixmap, int x, int y, Material::MaterialType type);
+    const QVector<QPair<QRect, bool>>& getColisionArea() const;
+    void aggMaterial(const QPixmap &pixmap, int x, int y);
 
     const QVector<Material*>& getMaterials() const;
-    void updateLabels(int maderaCount, int piedraCount); //actualizar label
 
 
 protected:
@@ -29,11 +28,8 @@ protected:
 private:
     QPixmap background1;
     QVector<QPixmap> tiles;
-    QVector<QRect> colisionArea; // Áreas de colisión
+    QVector<QPair<QRect, bool>> colisionArea;
     QVector<Material*> materials; // Almacenar los materiales
-
-    QLabel *maderaLabel; // Etiqueta para la madera
-    QLabel *piedraLabel; // Etiqueta para la piedra
 
 
 };

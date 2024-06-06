@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>map_1.png</file>
-        <file>map_2.png</file>
         <file>PJMov.png</file>
         <file>piedra.png</file>
-        <file>madera.png</file>
+        <file>vacio.png</file>
+        <file>inicio.png</file>
     </qresource>
 </RCC>

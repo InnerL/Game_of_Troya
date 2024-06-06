@@ -18,20 +18,23 @@ class Personaje : public QObject, public QGraphicsPixmapItem
 
 public:
     Personaje(QGraphicsItem *parent = nullptr);
-    void setCollisionAreas(const QVector<QRect> &areas);
+    void setCollisionAreas(const QVector<QPair<QRect, bool>> &areas);
     void setMaterials(const QVector<Material*> &materials);
-
-signals:
-    void materialCollected(int maderaCount, int piedraCount); // Señal para la recolección de materiales
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 
 
+
 private slots:
     void updateMovement();
     void nextFrame();
+
+    void updateRebound();
+
+signals:
+    void objectCollected(int collectedCount); // Señal para notificar cuando se recoge un objeto
 
 
 private:
@@ -42,16 +45,22 @@ private:
     int frameWidth;
     int frameHeight;
     QSet<int> pressedKeys;
-
-
-    bool checkCollision(int newX, int newY);
-    QVector<QRect> collisionAreas;
+    
+    
+    bool checkCollision(int newX, int newY, bool *isBorderCollision);
+    QVector<QPair<QRect, bool>> collisionAreas;
 
     QVector<Material*> materials;
     void materialColision();
 
-    int maderaCount; // Contador de madera
-    int piedraCount; // Contador de piedra
+
+    int collectedCount = 0;//contador objeto
+    bool facingLeft; // true izquierda, false si está mirando a la derecha
+
+    QTimer *reboundTimer;  // Nuevo temporizador para el rebote
+    int reboundSteps;      // Número de pasos para el rebote
+    int reboundDeltaX;     // Incremento X en cada paso del rebote
+    int reboundDeltaY;     // Incremento Y en cada paso del rebote
 };
 
 #endif // PERSONAJE_H
