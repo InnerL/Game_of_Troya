@@ -10,12 +10,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QPixmap characterPixmap(":/spartan-solo.png");
     QGraphicsPixmapItem *characterItem = scene->addPixmap(characterPixmap);
-    characterItem->setPos(200, 300);
+    characterItem->setPos(10, 910);  // Updated spawn coordinates
 
-    character = new Character(10, 910, 800, 600, characterItem);
-    level = new Level_2(background);
+    character = new Character(10, 910, 1280, 720, characterItem);  // Updated spawn coordinates and window dimensions
+    level = new Level_2(background, character);
 
-    resize(1280, 720);
+    resize(1280, 720);  // Updated window size
 }
 
 MainWindow::~MainWindow() {
@@ -31,4 +31,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
     character->keyReleaseEvent(event);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    character->mousePressEvent(event);
 }

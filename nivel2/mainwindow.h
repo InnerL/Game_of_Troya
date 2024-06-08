@@ -17,7 +17,7 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
-
+    void mousePressEvent(QMouseEvent *event) override;
 private:
     QGraphicsScene *scene;
     QGraphicsView *view;

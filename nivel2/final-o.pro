@@ -13,13 +13,15 @@ SOURCES += \
     fisica.cpp \
     level_2.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    obstacle.cpp
 
 HEADERS += \
     character.h \
     fisica.h \
     level_2.h \
-    mainwindow.h
+    mainwindow.h \
+    obstacle.h
 
 FORMS += \
     mainwindow.ui

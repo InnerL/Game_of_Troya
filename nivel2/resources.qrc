@@ -4,5 +4,7 @@
         <file>map_1.png</file>
         <file>map_2.png</file>
         <file>spartan-solo.png</file>
+        <file>spartan-obs.png</file>
+        <file>spartan-cac.png</file>
     </qresource>
 </RCC>
