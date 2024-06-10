@@ -24,7 +24,12 @@ protected:
 private:
     QPixmap pixmap;
     bool collected;
+    static int paintCounter; // ContadorpaintEvent
 
+    static int materialCont;
+
+    QPixmap buffer; // Buffer para almacenar el contenido dibujado
+    bool paintedOnce; // Indica si el contenido ya ha sido dibujado
 
 
 };

@@ -5,5 +5,12 @@
         <file>piedra.png</file>
         <file>vacio.png</file>
         <file>inicio.png</file>
+        <file>spartan.png</file>
+        <file>map_1.png</file>
+        <file>map_2.png</file>
+        <file>spartan-solo.png</file>
+        <file>spartan-obs.png</file>
+        <file>spartan-cac.png</file>
+        <file>map_3.png</file>
     </qresource>
 </RCC>

@@ -30,12 +30,10 @@ protected:
 private slots:
     void updateMovement();
     void nextFrame();
-
-    void updateRebound();
+    void updateRebound();//rebote
 
 signals:
     void objectCollected(int collectedCount); // Señal para notificar cuando se recoge un objeto
-
 
 private:
     QPixmap *spriteSheet;
@@ -61,6 +59,8 @@ private:
     int reboundSteps;      // Número de pasos para el rebote
     int reboundDeltaX;     // Incremento X en cada paso del rebote
     int reboundDeltaY;     // Incremento Y en cada paso del rebote
+
+    //
 };
 
 #endif // PERSONAJE_H

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 #include <QDebug>
 
 
@@ -7,18 +8,16 @@
         : QMainWindow(parent)
         , ui(new Ui::MainWindow)
         , countdownValue(100)  // Inicializar el tiempo
-
     {
         ui->setupUi(this);
-
-        createScene1();
-
         adjustWindowSizeToGraphicsView();
     }
 
     void MainWindow::createScene1()
     {
         try {
+            QMessageBox::information(this, "Comienzo", "Construye el caballo.");
+
             scene = new QGraphicsScene(this);
             createFondo();
             createPersonaje();
@@ -34,10 +33,9 @@
     }
 
     void MainWindow::labelN1(){
-        labelCont = new QLabel(QString("OBJETOS:   ").arg(0), this);
-        labelCont->setGeometry(390, 11, 110, 35); // Posición y tamaño
+        labelCont = new QLabel(QString("OBJETOS:   "), this);
+        labelCont->setGeometry(400, 11, 110, 35); // Posición y tamaño
         labelCont->setAlignment(Qt::AlignCenter);
-        //labelCont->setText(QString("OBJETOS: %1").arg(0));
         // Establecer estilo
         labelCont->setStyleSheet(
             "QLabel {"
@@ -52,7 +50,7 @@
 
         // Configurar labelCountdown
         labelCountdown = new QLabel(this);
-        labelCountdown->setGeometry(530, 11, 110, 35);//Posicion-Tamaño
+        labelCountdown->setGeometry(540, 11, 110, 35);//Posicion-Tamaño
         labelCountdown->setAlignment(Qt::AlignCenter);
         labelCountdown->setText(" ");
 
@@ -73,9 +71,9 @@
 
         // Configurar history
         labelhistory = new QLabel(this);
-        labelhistory->setGeometry(40, 11, 340, 35);//Posicion-Tamaño
+        labelhistory->setGeometry(20, 11, 370, 35);//Posicion-Tamaño
         labelhistory->setAlignment(Qt::AlignCenter);
-        labelhistory->setText("Busca y recoge materiales para avanzar.");
+        labelhistory->setText("Busca y recoge los 9 materiales para avanzar.");
 
         labelhistory->setStyleSheet(
             "QLabel {"
@@ -109,8 +107,10 @@
 
         connect(personaje, &Personaje::objectCollected, this, [this](int collectedCount) {
             labelCont->setText(QString("OBJETOS: %1").arg(collectedCount));
+            if (collectedCount >= 9) {
+                transitionToNivel2();
+            }
         });
-
     }
 
     void MainWindow::addMaterials(){
@@ -137,12 +137,14 @@
         }
     }
 
-    void MainWindow::configureGraphicsView(){
+    void MainWindow::configureGraphicsView()
+    {
         ui->graphicsView->setScene(scene);
         ui->graphicsView->setFixedSize(768, 768);
         ui->graphicsView->setRenderHint(QPainter::Antialiasing);
         ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        adjustWindowSizeToGraphicsView();  // Asegúrate de que esto se llame después de configurar el tamaño del graphicsView
     }
 
     void MainWindow::adjustWindowSizeToGraphicsView()
@@ -157,6 +159,39 @@
         setFixedSize(newSize);
     }
 
+    void MainWindow::transitionToNivel2() {
+        // Show message
+        QMessageBox::information(this, "Nivel Completado", "Camina hacia Troya y entrega el caballo.");
+
+        // Clean up current level
+        cleanupCurrentLevel();
+
+        // Transition to Mapa2
+        Mapa2 *mapa2 = new Mapa2();
+        mapa2->showFullScreen();
+        this->close();
+    }
+
+
+    void MainWindow::cleanupCurrentLevel() {
+        if (countdownTimer) {
+            countdownTimer->stop();
+        }
+
+        // Delete or reset pointers to the current scene and related objects
+        if (scene) {
+            delete scene;
+            scene = nullptr;
+        }
+
+        fondo = nullptr;
+        personaje = nullptr;
+        labelCont = nullptr;
+        labelCountdown = nullptr;
+        labelhistory = nullptr;
+        countdownTimer = nullptr;
+
+    }
 
     MainWindow::~MainWindow()
     {
@@ -173,9 +208,4 @@
             // Opcional: realizar alguna acción cuando la cuenta regresiva llegue a 0
             qDebug() << "Cuenta regresiva terminada";
         }
-    }
-
-    void MainWindow::mousePressEvent(QMouseEvent *event)
-    {
-        // No hacer nada para bloquear los clics del mouse
     }

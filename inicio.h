@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "mainwindow.h"
+#include "mapa2.h"
 
 #include <iostream>
 #include <ostream>

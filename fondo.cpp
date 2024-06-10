@@ -10,9 +10,7 @@ Fondo::Fondo(QWidget *parent)
 {
     try {
 
-        if (background1.isNull()) {
-            qWarning() << "No se pudo cargar la primera imagen de fondo. Verifica la ruta del recurso";
-        }
+
         // Tamaño de tu widget
         setFixedSize(768, 768);
         setFocusPolicy(Qt::StrongFocus);

@@ -2,6 +2,7 @@
 #include "qapplication.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include "mapa3.h"
 
 Inicio::Inicio(QWidget *parent)
     : QWidget(parent)
@@ -24,9 +25,6 @@ Inicio::Inicio(QWidget *parent)
     mainLayout->addWidget(backgroundLabel);
     mainLayout->addLayout(buttonLayout);
 
-    //connect(iniciarButton, &QPushButton::clicked, this, &Inicio::iniciarClicked);
-   // connect(salirButton, &QPushButton::clicked, this, &Inicio::salirClicked);
-
 
 
     connect(iniciarButton,&QPushButton::clicked , this,[&](){
@@ -40,10 +38,21 @@ Inicio::Inicio(QWidget *parent)
 
 void Inicio::iniciarClicked()
 {
+/*
     MainWindow *w = new MainWindow;
     w->createScene1();
+    //w->showFullScreen();
     w->show();
     this->close();
+
+    Mapa2 *mapa2 = new Mapa2();
+    mapa2->showFullScreen();
+    this->close();
+*/
+    Mapa3 *mapa3 = new Mapa3();
+    mapa3->showFullScreen();
+    this->close();
+
 }
 
 

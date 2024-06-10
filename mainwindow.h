@@ -8,7 +8,7 @@
 #include "fondo.h"
 #include <QLabel>
 #include <QTimer>
-
+#include "mapa2.h"
 #include <iostream>
 #include <ostream>
 
@@ -28,19 +28,14 @@ public:
     ~MainWindow();
     void createScene1();
 
-
-protected:
-    void mousePressEvent(QMouseEvent *event);
-
-
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     Personaje *personaje;
     Fondo *fondo;
-    QLabel *labelCont;  //Contador de objetos recogidos
+    QLabel *labelCont;      //Contador de objetos recogidos
     QLabel *labelCountdown; //Regresiva
-    QLabel *labelhistory; //Historia
+    QLabel *labelhistory;   //Historia
     int countdownValue;
     QTimer *countdownTimer;
 
@@ -50,9 +45,12 @@ private:
     void addMaterials();
     void configureGraphicsView();
     void adjustWindowSizeToGraphicsView();
+    void cleanupCurrentLevel();
 
 private slots:
     void updateCountdown();
+    void transitionToNivel2(); //iniciar el nivel 2
+
 
 };
 #endif // MAINWINDOW_H

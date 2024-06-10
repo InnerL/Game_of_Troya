@@ -160,8 +160,12 @@ void Personaje::materialColision()
         }
 
         if (materialToDelete) {
-            materials.removeOne(materialToDelete);
-            delete materialToDelete;
+            if (materials.removeOne(materialToDelete)) {
+                delete materialToDelete;
+                qDebug() << "Material eliminado correctamente.";
+            } else {
+                qWarning() << "No se pudo encontrar el material para eliminar.";
+            }
         }
     }catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
