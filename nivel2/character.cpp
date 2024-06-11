@@ -121,7 +121,7 @@ void Character::swingSword() {
 
                 if (distance <= 60) {
                     std::cout << "Destroying obstacle at distance: " << distance << std::endl;
-                    destroyObstacle(obstacle);
+                    destroyObstacle(obstacle); //o
                 }
             }
         }
