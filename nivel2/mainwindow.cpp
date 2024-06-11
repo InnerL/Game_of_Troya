@@ -16,36 +16,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QPixmap characterPixmap(":/spartan-solo.png");
     QGraphicsPixmapItem *characterItem = scene->addPixmap(characterPixmap);
-    characterItem->setPos(210, 560);  // Updated spawn coordinates
+    characterItem->setPos(210, 560);
 
     QPixmap sidecharPixmap(":/horse.png");
     QPixmap scaledsidecharPixmap = sidecharPixmap.scaled(200, 200, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     QGraphicsPixmapItem *sidecharItem = scene->addPixmap(scaledsidecharPixmap);
-    sidecharItem->setPos(10, 470);  // Updated spawn coordinates
+    sidecharItem->setPos(10, 470);
 
-    // Counter Label setup
+
     counterLabel = new QLabel(this);
-    counterLabel->setGeometry(10, 10, 250, 30);  // Position the label in the window
+    counterLabel->setGeometry(10, 10, 250, 30);
     counterLabel->setStyleSheet("QLabel { background-color : transparent; color : black; font-size: 24px; font-weight: bold;}");
 
-    // Progress Bar setup
     progressBar = new QProgressBar(this);
-    progressBar->setGeometry(270, 10, 250, 30);  // Position the progress bar in the window
+    progressBar->setGeometry(270, 10, 250, 30);
     progressBar->setRange(0, 5);
     progressBar->setValue(5);
 
-    // Restart Button setup
     restartButton = new QPushButton("Reiniciar", this);
-    restartButton->setGeometry(540, 10, 100, 30);  // Position the restart button in the window
-    restartButton->hide();  // Hide the button initially
+    restartButton->setGeometry(540, 10, 100, 30);
+    restartButton->hide();
     connect(restartButton, &QPushButton::clicked, this, &MainWindow::restartLevel);
 
-    character = new Character(210, 560, 800, 600, characterItem);  // Updated spawn coordinates and window dimensions
+    character = new Character(210, 560, 800, 600, characterItem);
     level = new Level_2(background, character, counterLabel);
 
-    // Connect progress bar update signal
     connect(level, &Level_2::progressUpdated, this, &MainWindow::updateProgressBar);
-    connect(level, &Level_2::gameOver, this, &MainWindow::showRestartButton);  // Connect gameOver signal to showRestartButton slot
+    connect(level, &Level_2::gameOver, this, &MainWindow::showRestartButton);
 
     resize(1280, 720);
 }
@@ -74,11 +71,11 @@ void MainWindow::updateProgressBar(int value) {
 }
 
 void MainWindow::showRestartButton() {
-    level->stopGame();  // Stop the game
+    level->stopGame();
     restartButton->show();
 }
 
 void MainWindow::restartLevel() {
-    restartButton->hide();  // Hide the button after clicking
+    restartButton->hide();
     level->restartGame();
 }

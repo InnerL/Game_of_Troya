@@ -1,10 +1,12 @@
 #include "character.h"
 #include "level_2.h"
+#include <iostream>
+#include <ostream>
 
 Character::Character(int x, int y, int w, int h, QGraphicsPixmapItem *item) :
     movingLeft(false), movingRight(false), jumping(false), tackling(false) {
     physics = new fisica(x, y, w, h, item);
-    physics->set_initial_conditions(x, y, 0, 0);  // Start completely still
+    physics->set_initial_conditions(x, y, 0, 0);
 
     updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Character::updatePhysics);
@@ -47,38 +49,38 @@ void Character::mousePressEvent(QMouseEvent *event) {
 void Character::updatePhysics() {
     float ax = 0.0;
     if (movingLeft) {
-        ax = -3.0;  // Updated acceleration for left movement
+        ax = -3.0;
     } else if (movingRight) {
-        ax = 3.0;  // Updated acceleration for right movement
+        ax = 3.0;
     } else {
-        ax = -physics->get_vx() * friction;  // Apply updated friction
+        ax = -physics->get_vx() * friction;
     }
 
     physics->calculate_cinematics(ax, 0);
 
-    // Apply gravity
+
     physics->calculate_parabolic_dynamics();
 
-    // Limit the velocity
+
     if (physics->get_vx() > maxVelocity) {
         physics->set_vx(maxVelocity);
     } else if (physics->get_vx() < -maxVelocity) {
         physics->set_vx(-maxVelocity);
     }
 
-    // Limit the character's position
+
     float characterX = physics->get_simulated_x(physics->get_x());
     QGraphicsPixmapItem *item = physics->get_item();
     if (characterX < 210) {
         physics->x = physics->get_phisical_x(210);
         physics->set_vx(0);
-    } else if (characterX > 1280 - item->pixmap().width()) {  // Updated right limit
+    } else if (characterX > 1280 - item->pixmap().width()) {
         physics->x = physics->get_phisical_x(1280 - item->pixmap().width());
         physics->set_vx(0);
     }
 
-    // Allow the character to fall and detect landing
-    if (physics->get_simulated_y(physics->get_y()) >= 600) {  // Updated y coordinate of the floor
+
+    if (physics->get_simulated_y(physics->get_y()) >= 600) {
         physics->set_y(physics->get_phisical_y(600));
         physics->set_vy(0);
         jumping = false;
@@ -90,7 +92,6 @@ void Character::checkCollision(Obstacle *obstacle) {
         if (tackling && obstacle->isRock()) {
             destroyObstacle(obstacle);
         } else if (!obstacle->isRock() && !tackling) {
-            // Implement collision logic with cactus here if needed
         }
     }
 }
@@ -98,7 +99,7 @@ void Character::checkCollision(Obstacle *obstacle) {
 void Character::tackle() {
     tackling = true;
     physics->set_vx(5.0);
-    tackleTimer->start(200);  // Tackle duration
+    tackleTimer->start(200);
 }
 
 void Character::stopTackle() {
@@ -106,16 +107,28 @@ void Character::stopTackle() {
 }
 
 void Character::swingSword() {
-    // Handle sword swinging logic
-    for (Obstacle *obstacle : dynamic_cast<Level_2*>(parent())->getObstacles()) {
-        if (!obstacle->isRock() && !obstacle->isDestroyed()) {
-            float distance = std::abs(physics->get_simulated_x(physics->get_x()) - obstacle->getItem()->x());
-            if (distance <= 30) {
-                destroyObstacle(obstacle);
+    std::cout << "Swing sword triggered" << std::endl;
+
+    Level_2 *level = dynamic_cast<Level_2*>(parent());
+    if (level) {
+        for (Obstacle *obstacle : level->getObstacles()) {
+            if (!obstacle->isRock() && !obstacle->isDestroyed()) {
+                float dx = physics->get_simulated_x(physics->get_x()) - obstacle->getItem()->x();
+                float dy = physics->get_simulated_y(physics->get_y()) - obstacle->getItem()->y();
+                float distance = std::sqrt(dx * dx + dy * dy);
+
+                std::cout << "Checking obstacle at distance: " << distance << std::endl;
+
+                if (distance <= 60) {
+                    std::cout << "Destroying obstacle at distance: " << distance << std::endl;
+                    destroyObstacle(obstacle);
+                }
             }
         }
     }
 }
+
+
 
 void Character::destroyObstacle(Obstacle *obstacle) {
     obstacle->destroy();

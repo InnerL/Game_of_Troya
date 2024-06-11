@@ -15,12 +15,12 @@ class Level_2 : public QObject {
 public:
     Level_2(QGraphicsPixmapItem *background, Character *character, QLabel *counterLabel);
     std::vector<Obstacle*> getObstacles() const;
-    void stopGame(); // Function to stop the game
-    void restartGame(); // Add restartGame function
+    void stopGame();
+    void restartGame();
 
 signals:
     void progressUpdated(int value);
-    void gameOver(); // Add signal to indicate game over
+    void gameOver();
 
 private slots:
     void updateBackground();
@@ -38,8 +38,8 @@ private:
     void checkCollisions();
     void moveObstaclesWithBackground();
     void updateCounter();
-    void resetBackground(); // Function to reset the background position
-    void clearObstacles(); // Function to clear remaining obstacles
+    void resetBackground();
+    void clearObstacles();
 };
 
 #endif // LEVEL_2_H

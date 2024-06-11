@@ -1,22 +1,24 @@
 #include "level_2.h"
 #include "mainwindow.h"
 #include "qgraphicsscene.h"
+#include <cstdlib>
+#include <ctime>
 
 Level_2::Level_2(QGraphicsPixmapItem *background, Character *character, QLabel *counterLabel)
     : background(background), backgroundX(0), character(character), counterLabel(counterLabel), counter(5) {
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Level_2::updateBackground);
-    timer->start(30);  // Update every 30 ms
+    timer->start(30);
 
     createObstacles();
 
-    // Initialize the counter label
+
     counterLabel->setText("Vida caballo: 5");
 }
 
 void Level_2::updateBackground() {
-    if (backgroundX > -4400) {  // 8000 (image width) - 800 (window width)
-        backgroundX -= 2;  // Scroll speed
+    if (backgroundX > -4400) {
+        backgroundX -= 2;
         background->setPos(backgroundX, 0);
         moveObstaclesWithBackground();
     }
@@ -25,17 +27,18 @@ void Level_2::updateBackground() {
 }
 
 void Level_2::createObstacles() {
-    QPixmap rockPixmap(":/spartan-obs.png");
-    QPixmap cactusPixmap(":/spartan-cac.png");
+    QPixmap rockPixmap(":/rock-only.png");
 
-    for (int i = 600; i < 5200; i += 600) {
+    int nextPosition = 600;
+
+    while (nextPosition < 12000) {
         Obstacle *obstacle;
-        if (i % 600 == 0) {
-            obstacle = new Obstacle(i, 600, rockPixmap);
+        int randomDistance = 400 + std::rand() % 401;
+        nextPosition += randomDistance;
+
+            obstacle = new Obstacle(nextPosition, 610, rockPixmap);
             obstacle->setRock(true);
-        } else {
-            obstacle = new Obstacle(i, 600, cactusPixmap);
-        }
+
         obstacles.push_back(obstacle);
         background->scene()->addItem(obstacle->getItem());
     }
@@ -54,10 +57,10 @@ std::vector<Obstacle*> Level_2::getObstacles() const {
 void Level_2::moveObstaclesWithBackground() {
     for (Obstacle *obstacle : obstacles) {
         if (!obstacle->isDestroyed()) {
-            obstacle->getItem()->moveBy(-10, 0);  // Move with the background speed
+            obstacle->getItem()->moveBy(-12, 0);
             if (obstacle->getItem()->x() <= 210) {
                 updateCounter();
-                // Optionally, remove the obstacle after counting
+
                 obstacle->destroy();
             }
         }
@@ -67,34 +70,34 @@ void Level_2::moveObstaclesWithBackground() {
 void Level_2::updateCounter() {
     counter--;
     counterLabel->setText("Vida caballo: " + QString::number(counter));
-    emit progressUpdated(counter);  // Emit signal to update progress bar
+    emit progressUpdated(counter);
 
     if (counter == 0) {
-        emit gameOver();  // Emit signal to indicate game over
-        stopGame();       // Stop the game
+        emit gameOver();
+        stopGame();
     }
 }
 
 void Level_2::restartGame() {
     counter = 5;
     counterLabel->setText("Vida caballo: 5");
-    emit progressUpdated(counter);  // Reset progress bar
+    emit progressUpdated(counter);
 
-    // Clear existing obstacles
+
     clearObstacles();
 
-    // Recreate obstacles
+
     createObstacles();
 
-    // Reset character position and velocities
+
     character->physics->get_item()->setPos(210, 560);
     character->physics->set_vx(0);
     character->physics->set_vy(0);
 
-    // Reset background position
+
     resetBackground();
 
-    // Restart the timer
+
     timer->start(30);
 }
 
