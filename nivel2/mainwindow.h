@@ -25,8 +25,8 @@ protected:
 
 public slots:
     void updateProgressBar(int value);
-    void showRestartButton(); // Slot to show restart button
-    void restartLevel(); // Add slot to handle game restart
+    void showRestartButton();
+    void restartLevel();
 
 private:
     QGraphicsScene *scene;
@@ -35,7 +35,7 @@ private:
     Level_2 *level;
     QLabel *counterLabel;
     QProgressBar *progressBar;
-    QPushButton *restartButton; // Add restart button
+    QPushButton *restartButton;
 };
 
 #endif // MAINWINDOW_H

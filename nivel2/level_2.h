@@ -17,6 +17,8 @@ public:
     std::vector<Obstacle*> getObstacles() const;
     void stopGame();
     void restartGame();
+    void clearAll();
+    bool endLevel = false;
 
 signals:
     void progressUpdated(int value);

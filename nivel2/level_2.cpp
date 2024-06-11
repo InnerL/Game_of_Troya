@@ -13,14 +13,19 @@ Level_2::Level_2(QGraphicsPixmapItem *background, Character *character, QLabel *
     createObstacles();
 
 
-    counterLabel->setText("Vida caballo: 5");
+    counterLabel->setText("Vida: 5");
 }
 
 void Level_2::updateBackground() {
-    if (backgroundX > -4400) {
-        backgroundX -= 2;
+    if (backgroundX > -3900) {
+        backgroundX -= 44;
         background->setPos(backgroundX, 0);
         moveObstaclesWithBackground();
+    }
+
+    if (backgroundX <= -4400){
+        endLevel = true;
+        stopGame();
     }
 
     checkCollisions();
@@ -31,7 +36,7 @@ void Level_2::createObstacles() {
 
     int nextPosition = 600;
 
-    while (nextPosition < 12000) {
+    while (nextPosition < 24000) {
         Obstacle *obstacle;
         int randomDistance = 400 + std::rand() % 401;
         nextPosition += randomDistance;
@@ -69,7 +74,7 @@ void Level_2::moveObstaclesWithBackground() {
 
 void Level_2::updateCounter() {
     counter--;
-    counterLabel->setText("Vida caballo: " + QString::number(counter));
+    counterLabel->setText("Vida: " + QString::number(counter));
     emit progressUpdated(counter);
 
     if (counter == 0) {
@@ -80,7 +85,7 @@ void Level_2::updateCounter() {
 
 void Level_2::restartGame() {
     counter = 5;
-    counterLabel->setText("Vida caballo: 5");
+    counterLabel->setText("Vida: 5");
     emit progressUpdated(counter);
 
 
