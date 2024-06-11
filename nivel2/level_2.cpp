@@ -11,7 +11,7 @@ Level_2::Level_2(QGraphicsPixmapItem *background, Character *character)
 }
 
 void Level_2::updateBackground() {
-    if (backgroundX > -7200) {  // 8000 (image width) - 800 (window width)
+    if (backgroundX > -4400) {  // 8000 (image width) - 800 (window width)
         backgroundX -= 2;  // Scroll speed
         background->setPos(backgroundX, 0);
         moveObstaclesWithBackground();
@@ -24,13 +24,13 @@ void Level_2::createObstacles() {
     QPixmap rockPixmap(":/spartan-obs.png");
     QPixmap cactusPixmap(":/spartan-cac.png");
 
-    for (int i = 800; i < 8000; i += 800) {
+    for (int i = 400; i < 5200; i += 400) {
         Obstacle *obstacle;
-        if (i % 1600 == 0) {
-            obstacle = new Obstacle(i, 910, rockPixmap);
+        if (i % 400 == 0) {
+            obstacle = new Obstacle(i, 490, rockPixmap);
             obstacle->setRock(true);
         } else {
-            obstacle = new Obstacle(i, 910, cactusPixmap);
+            obstacle = new Obstacle(i, 490, cactusPixmap);
         }
         obstacles.push_back(obstacle);
         background->scene()->addItem(obstacle->getItem());
