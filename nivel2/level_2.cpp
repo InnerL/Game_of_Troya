@@ -71,6 +71,7 @@ void Level_2::updateCounter() {
 
     if (counter == 0) {
         emit gameOver();  // Emit signal to indicate game over
+        stopGame();       // Stop the game
     }
 }
 
@@ -80,10 +81,7 @@ void Level_2::restartGame() {
     emit progressUpdated(counter);  // Reset progress bar
 
     // Clear existing obstacles
-    for (Obstacle *obstacle : obstacles) {
-        delete obstacle;
-    }
-    obstacles.clear();
+    clearObstacles();
 
     // Recreate obstacles
     createObstacles();
@@ -92,11 +90,27 @@ void Level_2::restartGame() {
     character->physics->get_item()->setPos(210, 560);
     character->physics->set_vx(0);
     character->physics->set_vy(0);
+
     // Reset background position
     resetBackground();
+
+    // Restart the timer
+    timer->start(30);
 }
 
 void Level_2::resetBackground() {
     backgroundX = 0;
     background->setPos(backgroundX, 0);
+}
+
+void Level_2::clearObstacles() {
+    for (Obstacle *obstacle : obstacles) {
+        background->scene()->removeItem(obstacle->getItem());
+        delete obstacle;
+    }
+    obstacles.clear();
+}
+
+void Level_2::stopGame() {
+    timer->stop();
 }

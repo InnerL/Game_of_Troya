@@ -74,6 +74,7 @@ void MainWindow::updateProgressBar(int value) {
 }
 
 void MainWindow::showRestartButton() {
+    level->stopGame();  // Stop the game
     restartButton->show();
 }
 
