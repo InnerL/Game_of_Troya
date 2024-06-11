@@ -72,14 +72,14 @@ void Character::updatePhysics() {
     if (characterX < 0) {
         physics->x = physics->get_phisical_x(0);
         physics->set_vx(0);
-    } else if (characterX > 800 - item->pixmap().width()) {  // Updated right limit
-        physics->x = physics->get_phisical_x(800 - item->pixmap().width());
+    } else if (characterX > 1280 - item->pixmap().width()) {  // Updated right limit
+        physics->x = physics->get_phisical_x(1280 - item->pixmap().width());
         physics->set_vx(0);
     }
 
     // Allow the character to fall and detect landing
-    if (physics->get_simulated_y(physics->get_y()) >= 490) {  // Updated y coordinate of the floor
-        physics->set_y(physics->get_phisical_y(490));
+    if (physics->get_simulated_y(physics->get_y()) >= 600) {  // Updated y coordinate of the floor
+        physics->set_y(physics->get_phisical_y(600));
         physics->set_vy(0);
         jumping = false;
     }

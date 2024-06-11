@@ -24,13 +24,13 @@ void Level_2::createObstacles() {
     QPixmap rockPixmap(":/spartan-obs.png");
     QPixmap cactusPixmap(":/spartan-cac.png");
 
-    for (int i = 400; i < 5200; i += 400) {
+    for (int i = 600; i < 5200; i += 600) {
         Obstacle *obstacle;
-        if (i % 400 == 0) {
-            obstacle = new Obstacle(i, 490, rockPixmap);
+        if (i % 600 == 0) {
+            obstacle = new Obstacle(i, 600, rockPixmap);
             obstacle->setRock(true);
         } else {
-            obstacle = new Obstacle(i, 490, cactusPixmap);
+            obstacle = new Obstacle(i, 600, cactusPixmap);
         }
         obstacles.push_back(obstacle);
         background->scene()->addItem(obstacle->getItem());
