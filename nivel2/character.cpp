@@ -69,8 +69,8 @@ void Character::updatePhysics() {
     // Limit the character's position
     float characterX = physics->get_simulated_x(physics->get_x());
     QGraphicsPixmapItem *item = physics->get_item();
-    if (characterX < 0) {
-        physics->x = physics->get_phisical_x(0);
+    if (characterX < 210) {
+        physics->x = physics->get_phisical_x(210);
         physics->set_vx(0);
     } else if (characterX > 1280 - item->pixmap().width()) {  // Updated right limit
         physics->x = physics->get_phisical_x(1280 - item->pixmap().width());

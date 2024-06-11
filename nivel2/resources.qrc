@@ -6,5 +6,6 @@
         <file>spartan-solo.png</file>
         <file>spartan-obs.png</file>
         <file>spartan-cac.png</file>
+        <file>horse.png</file>
     </qresource>
 </RCC>

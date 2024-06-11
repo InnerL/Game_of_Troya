@@ -17,17 +17,17 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void checkCollision(Obstacle *obstacle);
+    fisica *physics;
 
 private slots:
     void updatePhysics();
 
 private:
-    fisica *physics;
+
     bool movingLeft, movingRight, jumping, tackling;
     QTimer *updateTimer, *tackleTimer;
     const float maxVelocity = 3.0;
     const float friction = 4.0;
-
     void tackle();
     void stopTackle();
     void swingSword();
