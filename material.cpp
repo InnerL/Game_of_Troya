@@ -13,21 +13,13 @@ Material::Material(const QPixmap &pixmap, int x, int y, QWidget *parent)
 
 {
     try {
-        if (pixmap.isNull()) {
-            qWarning() << "No se pudo cargar la imagen del material. Verifica la ruta del recurso";
-        } else {
-            qDebug() << "Imagen del material cargada correctamente.";
-        }
         setFixedSize(pixmap.size());
         move(x, y); // Colocar el material en la posición deseada
         materialCont++; // Incrementar el contador de instancias
-        qDebug() << "Material creado en posición:" << x << y << "con tamaño:" << pixmap.size();
-        qDebug() << "Número de instancias de Material: " << materialCont;
-
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
     // Inicializar el buffer
     buffer = QPixmap(size());
@@ -54,7 +46,6 @@ void Material::paintEvent(QPaintEvent *event)
         QPainter bufferPainter(&buffer);
         bufferPainter.drawPixmap(0, 0, pixmap);
         paintedOnce = true;
-        qDebug() << "Material dibujado una vez en el buffer.";
     }
 
     QPainter painter(this);

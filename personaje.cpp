@@ -13,10 +13,7 @@ Personaje::Personaje(QGraphicsItem *parent)
     reboundDeltaX(0),
     reboundDeltaY(0)
 {
-    spriteSheet = new QPixmap(":/PJMov.png");
-    if(spriteSheet->isNull()){
-        qWarning() << "No se pudo cargar la primera imagen de fondo. Verifica la ruta del recurso";
-    }
+    spriteSheet = new QPixmap(":/imagen/PJMov.png");
     setPixmap(spriteSheet->copy(0, 0, frameWidth, frameHeight));
 
     animationTimer = new QTimer(this);
@@ -80,7 +77,14 @@ void Personaje::updateMovement()
             deltaX += 2;
             facingLeft = false;
         }
-
+        if (pressedKeys.contains(Qt::RightButton)) {
+            deltaX += 2;
+            facingLeft = false;
+        }
+        if (pressedKeys.contains(Qt::LeftButton)) {
+            deltaX += 2;
+            facingLeft = false;
+        }
         newX += deltaX;
         newY += deltaY;
 
@@ -99,7 +103,7 @@ void Personaje::updateMovement()
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
 
 }
@@ -162,15 +166,13 @@ void Personaje::materialColision()
         if (materialToDelete) {
             if (materials.removeOne(materialToDelete)) {
                 delete materialToDelete;
-                qDebug() << "Material eliminado correctamente.";
             } else {
-                qWarning() << "No se pudo encontrar el material para eliminar.";
             }
         }
     }catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
 }
 

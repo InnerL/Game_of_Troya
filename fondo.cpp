@@ -6,7 +6,7 @@
 
 Fondo::Fondo(QWidget *parent)
     : QWidget(parent),
-    background1(":/map_1.png") // Ruta del fondo
+    background1(":/imagen/map_1.png") // Ruta del fondo
 {
     try {
 
@@ -59,7 +59,7 @@ Fondo::Fondo(QWidget *parent)
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
 
 }
@@ -69,15 +69,10 @@ void Fondo::aggMaterial(const QPixmap &pixmap, int x, int y)
         Material *material = new Material(pixmap, x, y, this);
         materials.append(material);
         material->show();
-        if (material->isVisible()) {
-            qDebug() << "Material añadido en (" << x << "," << y << ")";
-        } else {
-            qWarning() << "El material no es visible. Posiblemente hubo un error.";
-        }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
 
 
@@ -102,7 +97,7 @@ void Fondo::paintEvent(QPaintEvent *event)
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     } catch (...) {
-        std::cerr << "Unknown error occurred" << std::endl;
+        std::cerr << "Ocurrio un error no identificado" << std::endl;
     }
 
 

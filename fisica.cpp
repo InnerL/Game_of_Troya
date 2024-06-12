@@ -122,9 +122,16 @@ QGraphicsPixmapItem *fisica::get_item() const
     return item;
 }
 
-void fisica::jump()
+void fisica::jump2()
 {
     if (get_y() <= get_phisical_y(300)) {
+        vy = 3.0;
+    }
+}
+
+void fisica::jump3()
+{
+    if (get_y() <= get_phisical_y(100)) {
         vy = 3.0;
     }
 }

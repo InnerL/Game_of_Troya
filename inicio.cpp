@@ -3,6 +3,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "mapa3.h"
+#include <QScreen>
+#include <QGuiApplication> // Para obtener el tamaño de la pantalla
 
 Inicio::Inicio(QWidget *parent)
     : QWidget(parent)
@@ -13,7 +15,7 @@ Inicio::Inicio(QWidget *parent)
     QHBoxLayout *buttonLayout = new QHBoxLayout();
 
     backgroundLabel = new QLabel(this);
-    backgroundLabel->setPixmap(QPixmap(":/inicio.png")); // Cambia la ruta a la imagen de inicio
+    backgroundLabel->setPixmap(QPixmap(":/imagen/inicio.png")); // Cambia la ruta a la imagen de inicio
     backgroundLabel->setAlignment(Qt::AlignCenter);
 
     iniciarButton = new QPushButton("Iniciar", this);
@@ -34,25 +36,30 @@ Inicio::Inicio(QWidget *parent)
     connect(salirButton,&QPushButton::clicked, this, &QApplication::quit);
 
     setLayout(mainLayout);
+
+    // Centrar la ventana en la pantalla
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int x = (screenGeometry.width() - this->width()) / 2;
+    int y = (screenGeometry.height() - this->height()) / 6;
+    this->move(x, y);
 }
 
 void Inicio::iniciarClicked()
 {
-/*
+
     MainWindow *w = new MainWindow;
     w->createScene1();
-    //w->showFullScreen();
     w->show();
     this->close();
-
+/*
     Mapa2 *mapa2 = new Mapa2();
     mapa2->showFullScreen();
     this->close();
-*/
     Mapa3 *mapa3 = new Mapa3();
     mapa3->showFullScreen();
     this->close();
-
+*/
 }
 
 

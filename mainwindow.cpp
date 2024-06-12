@@ -27,7 +27,7 @@
         } catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
         } catch (...) {
-            std::cerr << "Unknown error occurred" << std::endl;
+            std::cerr << "Ocurrio un error no identificado" << std::endl;
         }
 
     }
@@ -116,13 +116,13 @@
     void MainWindow::addMaterials(){
         try {
             // Agregar materiales
-            QPixmap materialPixmap1(":/piedra.png");
+            QPixmap materialPixmap1(":/imagen/piedra.png");
             fondo->aggMaterial(materialPixmap1, 672, 101);
             fondo->aggMaterial(materialPixmap1, 677, 640);
             fondo->aggMaterial(materialPixmap1, 53, 637);
             fondo->aggMaterial(materialPixmap1, 264, 108);
 
-            QPixmap materialPixmap2(":/vacio.png");
+            QPixmap materialPixmap2(":/imagen/vacio.png");
             fondo->aggMaterial(materialPixmap2, 488, 320);//poner invicible
             fondo->aggMaterial(materialPixmap2, 294, 251);//poner invicible
             fondo->aggMaterial(materialPixmap2, 503, 648);
@@ -133,7 +133,7 @@
         } catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
         } catch (...) {
-            std::cerr << "Unknown error occurred" << std::endl;
+            std::cerr << "Ocurrio un error no identificado" << std::endl;
         }
     }
 
@@ -168,7 +168,7 @@
 
         // Transition to Mapa2
         Mapa2 *mapa2 = new Mapa2();
-        mapa2->showFullScreen();
+        mapa2->show();
         this->close();
     }
 
@@ -205,7 +205,6 @@
             labelCountdown->setText(QString("Tiempo: %1").arg(countdownValue));
         } else {
             countdownTimer->stop();
-            // Opcional: realizar alguna acción cuando la cuenta regresiva llegue a 0
-            qDebug() << "Cuenta regresiva terminada";
+
         }
     }

@@ -25,7 +25,8 @@ public:
     float get_simulated_x(float x);
     float get_simulated_y(float y);
     QGraphicsPixmapItem *get_item() const;
-    void jump();
+    void jump2();
+    void jump3();
     int x_dimension, y_dimension, h, w;
     float x, y, vx, vy;
     QTimer *time;
