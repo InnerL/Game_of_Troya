@@ -1,10 +1,6 @@
 #include "Level2.h"
-#include "mainwindow.h"
 #include "qgraphicsscene.h"
 #include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <ostream>
 #include <QMessageBox>
 
 
@@ -36,9 +32,8 @@ void Level2::updateBackground() {
     checkCollisions();
 
 
-    if (backgroundX <= -1000){
+    if (backgroundX <= -3900){
         emit cleanUpRequested(); // Emitir la señal para limpiar recursos
-
     }
 
 }

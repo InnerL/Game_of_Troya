@@ -37,13 +37,12 @@ signals:
 
 private:
     QPixmap *spriteSheet;
-    QTimer *animationTimer;
-    QTimer *movementTimer;
-    int currentFrame;
-    int frameWidth;
-    int frameHeight;
-    QSet<int> pressedKeys;
-    
+    QTimer  *animationTimer;
+    QTimer  *movementTimer;
+    int     currentFrame;
+    int     frameWidth;
+    int     frameHeight;
+  QSet<int> pressedKeys;
     
     bool checkCollision(int newX, int newY, bool *isBorderCollision);
     QVector<QPair<QRect, bool>> collisionAreas;

@@ -2,7 +2,6 @@
 #include "qapplication.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include "mapa3.h"
 #include <QScreen>
 #include <QGuiApplication> // Para obtener el tamaño de la pantalla
 
@@ -52,14 +51,8 @@ void Inicio::iniciarClicked()
     w->createScene1();
     w->show();
     this->close();
-/*
-    Mapa2 *mapa2 = new Mapa2();
-    mapa2->showFullScreen();
-    this->close();
-    Mapa3 *mapa3 = new Mapa3();
-    mapa3->showFullScreen();
-    this->close();
-*/
+
 }
+
 
 

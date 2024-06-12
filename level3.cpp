@@ -22,16 +22,16 @@ level3::level3(Mapa3 *mapa, QGraphicsPixmapItem *background, Character *characte
     background2->setPos(background->boundingRect().width(), 0);  // Colocar el segundo fondo justo después del primero
     background->scene()->addItem(background2);
 
-    // Crear el temporizador para generar guardias después de intervalos aleatorios entre 1 y 5 segundos
+    // Crear el temporizador para generar enemigos después de intervalos aleatorios
     guardTimer = new QTimer(this);
     connect(guardTimer, &QTimer::timeout, this, &level3::createguard);
-    generateRandomGuardInterval(); // Genera el primer guardia de inmediato
+    generateRandomGuardInterval(); // Genera el primer de inmediato
 
-    // Crear el temporizador para la animación de los guardias
-    guardSpriteSheet = QPixmap(":/imagen/NPCMov.png");  // Load the guard sprite sheet
+    // Crear el temporizador para la animación de los enemigos
+    guardSpriteSheet = QPixmap(":/imagen/NPCMov.png");
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, &level3::updateGuardAnimationFrame);
-    animationTimer->start(100);  // Update frame every 100 ms
+    animationTimer->start(100);  // actualizar frame cada 100 ms
 
     arrowTimer = new QTimer(this); // Nuevo temporizador para flechas
     connect(arrowTimer, &QTimer::timeout, this, &level3::createArrow);
@@ -42,7 +42,7 @@ level3::level3(Mapa3 *mapa, QGraphicsPixmapItem *background, Character *characte
 }
 
 void level3::updateBackground() {
-    backgroundX -= 2; // Scroll speed
+    backgroundX -= 2; // velocidad fondo
 
     if (backgroundX <= -background->boundingRect().width()) {
         backgroundX = 0;
@@ -56,14 +56,14 @@ void level3::updateBackground() {
         if (!guards.empty()) { // Verificar si hay guardias
             for (QGraphicsPixmapItem* guardItem : guards) {
                 if (guardItem->isVisible()) {
-                    moveguardTowardsCharacter();  // Mueve el guardia hacia el personaje
+                    moveguardTowardsCharacter();  // Mueve el enemigo hacia el personaje
                     if (character->getPhysics()->get_item()->collidesWithItem(guardItem)) {
                         handleCharacterguardCollision(guardItem);
                     }
                 }
             }
 
-            // Verificar si los guardias están fuera de la pantalla y ocultarlos si es necesario
+            // Verificar si los enemigos están fuera de la pantalla y ocultarlos si es necesario
             for (auto it = guards.begin(); it != guards.end(); ) {
                 QGraphicsPixmapItem* guardItem = *it;
                 if (guardItem->x() < -guardItem->boundingRect().width()) {
@@ -103,14 +103,14 @@ void level3::updateBackground() {
 
 
 void level3::createguard() {
-    // Creamos un nuevo guardia
+    // Creamos un nuevo enemigo
     QPixmap guardPixmap = guardSpriteSheet.copy(0, 0, guardSpriteSheet.width() / totalGuardFrames, guardSpriteSheet.height());
     QGraphicsPixmapItem *guardItem = new QGraphicsPixmapItem(guardPixmap);
     guardItem->setPos(1300, 250);
     background->scene()->addItem(guardItem);
-    guards.push_back(guardItem);    // Agrega el guardia al vector
+    guards.push_back(guardItem);    // Agrega el enemigo al vector
 
-    // Generar el siguiente guardia después de un intervalo aleatorio entre 1 y 5 segundos
+    // Generar el siguiente enemigo después de un intervalo aleatorio entre segundos
     generateRandomGuardInterval();
 }
 
@@ -125,8 +125,8 @@ void level3::createArrow() {
 }
 
 void level3::moveguardTowardsCharacter() {
-    // Mueve cada guardia hacia el personaje
-    float step = 4.0;  // Velocidad del guardia
+    // Mueve hacia el personaje
+    float step = 4.0;  // Velocidad
     for (QGraphicsPixmapItem* guardItem : guards) {
         guardItem->moveBy(-step, 0);  // Mover hacia la izquierda
     }
@@ -144,7 +144,7 @@ void level3::moveArrowTowardsCharacter() {
 void level3::handleCharacterguardCollision(QGraphicsPixmapItem* guardItem) {
     // Aquí puedes implementar la lógica para la alerta
     try {
-        // Oculta el guardia tocado
+        // Oculta el enemigo tocado
         guardItem->setVisible(false);
 
         if (mapa) {
@@ -184,7 +184,6 @@ void level3::handleCharacterArrowCollision(QGraphicsPixmapItem* arrowItem) {
 void level3::generateRandomGuardInterval() {
     // Genera un intervalo aleatorio
     int randomInterval = rand() % 1500 + 500; // 1000 = 1 segundo, 4000 = 4 segundos
-    //int randomInterval = QRandomGenerator::global()->bounded(500, 1001); // 1000 ms a 5000 ms
     guardTimer->start(randomInterval); // Comienza el temporizador con el intervalo aleatorio
 }
 

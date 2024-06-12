@@ -10,7 +10,7 @@
         , countdownValue(100)  // Inicializar el tiempo
     {
         ui->setupUi(this);
-        adjustWindowSizeToGraphicsView();
+        SizeToGraphicsView();
     }
 
     void MainWindow::createScene1()
@@ -144,10 +144,10 @@
         ui->graphicsView->setRenderHint(QPainter::Antialiasing);
         ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        adjustWindowSizeToGraphicsView();  // Asegúrate de que esto se llame después de configurar el tamaño del graphicsView
+        SizeToGraphicsView();  // Asegúrate de que esto se llame después de configurar el tamaño del graphicsView
     }
 
-    void MainWindow::adjustWindowSizeToGraphicsView()
+    void MainWindow::SizeToGraphicsView()
     {
         // Obtener el tamaño del QGraphicsView
         QSize graphicsViewSize = ui->graphicsView->size();

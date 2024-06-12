@@ -32,11 +32,11 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     Personaje *personaje;
-    Fondo *fondo;
-    QLabel *labelCont;      //Contador de objetos recogidos
-    QLabel *labelCountdown; //Regresiva
-    QLabel *labelhistory;   //Historia
-    int countdownValue;
+    Fondo  *fondo;
+    QLabel *labelCont;        //Contador de objetos recogidos
+    QLabel *labelCountdown;   //Regresiva
+    QLabel *labelhistory;     //Historia
+    int    countdownValue;
     QTimer *countdownTimer;
 
     void labelN1();
@@ -44,7 +44,7 @@ private:
     void createPersonaje();
     void addMaterials();
     void configureGraphicsView();
-    void adjustWindowSizeToGraphicsView();
+    void SizeToGraphicsView();
     void cleanupCurrentLevel();
 
 private slots:

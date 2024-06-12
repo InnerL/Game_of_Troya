@@ -4,7 +4,7 @@
 
 Mapa3::Mapa3(QWidget *parent)
     : QMainWindow(parent)
-    , countdownValue(60)  // Inicializar el tiempo
+    , countdownValue(40)  // Inicializar el tiempo
     , vida(10)
 
 {

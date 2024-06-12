@@ -41,4 +41,10 @@ private:
     void cleanUpResources();
 };
 
+
+
+
+
+
+
 #endif // MAPA2_H
